@@ -6,16 +6,16 @@ import java.util.Scanner;
 public class Bestellung {
     public static void erstelleTabelleBestellungen(Connection c) throws SQLException {
         Statement stmt = c.createStatement();
-        String createBestellungTable = "CREATE TABLE IF NOT EXISTS bestellung (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
+        String createBestellTabelle = "CREATE TABLE IF NOT EXISTS bestellung (" +
                 "kundenId INT," +
-                "schuhid INT," +
-                "anzahl INT," +
-                "bestellzeit TIMESTAMP," +
+                "schuhId INT," +
+                "anzahl INT NOT NULL," +
+                "bestellzeit TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                "PRIMARY KEY (kundenId, schuhId)," +
                 "FOREIGN KEY (kundenId) REFERENCES kunden(id)," +
-                "FOREIGN KEY (schuhid) REFERENCES schuhe(id)" +
+                "FOREIGN KEY (schuhId) REFERENCES schuhe(id)" +
                 ");";
-        stmt.executeUpdate(createBestellungTable);
+        stmt.executeUpdate(createBestellTabelle);
         System.out.println("Bestellungen table created successfully");
     }
 
