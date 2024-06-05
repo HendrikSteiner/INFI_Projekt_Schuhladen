@@ -1,4 +1,5 @@
-Java Projekt Schuhladen für INFI
+Projekt Schuhladen:
+
 Folgendes kommt in meinem Projekt vor: 
 ManyToMany Beziehung zwischen Schuhe und Kunden | Einlesen von JSON File für größere Bestellungen an Schuhen --> diese werden im Lager eingetragen | Export der Schuhtabelle in einen JSON File | Menüauswahl für Kunde mit switch case (wie altes Projekt) |  MySQL Datenbank
 
