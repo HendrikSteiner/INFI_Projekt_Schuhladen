@@ -1,14 +1,9 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Bestellung
-{
-
+public class Bestellung {
     public static void erstelleTabelleBestellungen(Connection c) throws SQLException {
         Statement stmt = c.createStatement();
         String createBestellungTable = "CREATE TABLE IF NOT EXISTS bestellung (" +
@@ -24,44 +19,51 @@ public class Bestellung
         System.out.println("Bestellungen table created successfully");
     }
 
-        public static void bestellen(Connection c) {
-            Scanner scanner = new Scanner(System.in);
-            try {
-                Statement stmt = c.createStatement();
+    public static void bestellen(Connection c) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            Statement stmt = c.createStatement();
 
-                ResultSet resultSet = stmt.executeQuery("SELECT * FROM kunden");
-                System.out.println("Kunden-Tabelle:");
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("ID");
-                    String kundenName = resultSet.getString("name");
-                    String kundenEmail = resultSet.getString("email");
-                    System.out.println("KundenID: " + id + ", Name: " + kundenName + ", Email: " + kundenEmail);
-                }
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM kunden");
+            System.out.println("Kunden-Tabelle:");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String kundenName = resultSet.getString("name");
+                String kundenEmail = resultSet.getString("email");
+                System.out.println("KundenID: " + id + ", Name: " + kundenName + ", Email: " + kundenEmail);
+            }
 
-                System.out.println("-----------------------------------------");
-                System.out.println("Wer soll etwas bestellen?");
-                System.out.print("Kunden ID: ");
-                int kundenId = Integer.parseInt(scanner.nextLine());
+            System.out.println("-----------------------------------------");
+            System.out.println("Wer soll etwas bestellen?");
+            System.out.print("Kunden ID: ");
+            int kundenId = Integer.parseInt(scanner.nextLine());
 
-                ResultSet resultSet2 = stmt.executeQuery("SELECT * FROM schuhe");
-                System.out.println("Schuhe-Tabelle:");
-                while (resultSet2.next()) {
-                    int schuhId = resultSet2.getInt("ID");
-                    String marke = resultSet2.getString("marke");
-                    String modell = resultSet2.getString("modell");
-                    double preis = resultSet2.getDouble("preis");
-                    System.out.println("SchuhID: " + schuhId + ", Marke: " + marke + ", Modell: " + modell + ", Preis: " + preis);
-                }
+            ResultSet resultSet2 = stmt.executeQuery("SELECT * FROM schuhe");
+            System.out.println("Schuhe-Tabelle:");
+            while (resultSet2.next()) {
+                int schuhId = resultSet2.getInt("ID");
+                String marke = resultSet2.getString("marke");
+                String modell = resultSet2.getString("modell");
+                double preis = resultSet2.getDouble("preis");
+                System.out.println("SchuhID: " + schuhId + ", Marke: " + marke + ", Modell: " + modell + ", Preis: " + preis);
+            }
 
-                System.out.println("-----------------------------------------");
-                System.out.println("Was soll der Kunde " + kundenId + " bestellen?");
-                System.out.print("Schuh ID: ");
-                int schuhId = Integer.parseInt(scanner.nextLine());
+            double kontostanddavor = Kunde.getKontostand(kundenId, c);
+            System.out.println("Aktueller Kontostand des Kunden: " + kontostanddavor);
+            System.out.println("-----------------------------------------");
+            System.out.println("Was soll der Kunde " + kundenId + " bestellen?");
+            System.out.print("Schuh ID: ");
+            int schuhId = Integer.parseInt(scanner.nextLine());
 
-                System.out.print("Anzahl: ");
-                int anzahl = Integer.parseInt(scanner.nextLine());
+            System.out.print("Anzahl: ");
+            int anzahl = Integer.parseInt(scanner.nextLine());
 
-                if (istSchuhVerfuegbar(schuhId, anzahl, c)) {
+            if (istSchuhVerfuegbar(schuhId, anzahl, c)) {
+                double preis = Schuhe.getSchuhPreis(schuhId, c);
+                double gesamtPreis = preis * anzahl;
+
+                double kontostand = Kunde.getKontostand(kundenId, c);
+                if (kontostand >= gesamtPreis) {
                     String sql = "INSERT INTO bestellung (kundenId, schuhid, anzahl, bestellzeit) VALUES (?, ?, ?, NOW())";
                     try (PreparedStatement pstmt = c.prepareStatement(sql)) {
                         pstmt.setInt(1, kundenId);
@@ -69,28 +71,34 @@ public class Bestellung
                         pstmt.setInt(3, anzahl);
                         pstmt.executeUpdate();
                     }
-                    Lager.erhoeheLagerbestand(schuhId, anzahl, c); //bringt Probleme
+                    Lager.reduziereLagerbestand(schuhId, anzahl, c);
+                    Kunde.verringereKontostand(kundenId, gesamtPreis, c);
                     System.out.println("Bestellung erfolgreich eingetragen.");
                 } else {
-                    System.out.println("Fehler: Schuh nicht auf Lager oder nicht ausreichende Menge verfügbar.");
+                    System.out.println("Fehler: Nicht genügend Guthaben.");
                 }
-            } catch (NumberFormatException | SQLException e) {
-                System.out.println("Fehler beim Eintragen der Bestellung: " + e.getMessage());
+
+                double kontostanddanach = Kunde.getKontostand(kundenId, c);
+                System.out.println("Neuer Kontostand des Kunden : "+kontostanddanach);
+            } else {
+                System.out.println("Fehler: Schuh nicht auf Lager oder nicht ausreichende Menge verfügbar.");
             }
+        } catch (NumberFormatException | SQLException e) {
+            System.out.println("Fehler beim Eintragen der Bestellung: " + e.getMessage());
         }
+    }
 
-        private static boolean istSchuhVerfuegbar(int schuhId, int anzahl, Connection c) throws SQLException {
-            Statement stmt = c.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT menge FROM lager WHERE schuhID = " + schuhId);
 
-            if (resultSet.next()) {
-                int lagerMenge = resultSet.getInt("menge");
-                return lagerMenge >= anzahl;
-            }
-            return false;
+    private static boolean istSchuhVerfuegbar(int schuhId, int anzahl, Connection c) throws SQLException {
+        Statement stmt = c.createStatement();
+        ResultSet resultSet = stmt.executeQuery("SELECT menge FROM lager WHERE schuhID = " + schuhId);
+
+        if (resultSet.next()) {
+            int lagerMenge = resultSet.getInt("menge");
+            return lagerMenge >= anzahl;
         }
-
-     /*   ----------------------------------------------------------------------------------------------------------------------*/
+        return false;
+    }
 
     public static void selectFromBestellungen(Connection c, String kundenId) {
         try {
@@ -135,5 +143,4 @@ public class Bestellung
             System.out.println("Fehler beim Anzeigen der Bestellungen: " + e.getMessage());
         }
     }
-
 }

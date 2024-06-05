@@ -2,12 +2,11 @@ package org.example;
 
 import java.sql.*;
 
-public class Lager
-{
+public class Lager {
     public static void erstelleTabelleLager(Connection c) throws SQLException {
         Statement stmt = c.createStatement();
         String createTableSQL = "CREATE TABLE IF NOT EXISTS lager (" +
-                "ID INTEGER PRIMARY KEY, " +
+                "ID INT AUTO_INCREMENT PRIMARY KEY, " +
                 "schuhID INTEGER REFERENCES schuhe(ID), " +
                 "menge INTEGER, " +
                 "eingangsdatum DATE)";
@@ -36,10 +35,11 @@ public class Lager
                     id, menge, eingangsdatum, marke, modell, schuhgroesse, farbe, preis);
         }
     }
+
     public static void erhoeheLagerbestand(int schuhId, int anzahl, Connection c) throws SQLException {
         String checkSchuhSQL = "SELECT * FROM lager WHERE schuhID = ?";
         String updateLagerSQL = "UPDATE lager SET menge = menge + ? WHERE schuhID = ?";
-        String insertLagerSQL = "INSERT INTO lager (schuhID, menge) VALUES (?, ?)";
+        String insertLagerSQL = "INSERT INTO lager (schuhID, menge, eingangsdatum) VALUES (?, ?, CURDATE())";
 
         try (PreparedStatement checkStmt = c.prepareStatement(checkSchuhSQL)) {
             checkStmt.setInt(1, schuhId);
@@ -58,6 +58,16 @@ public class Lager
                     insertStmt.executeUpdate();
                 }
             }
+        }
+    }
+
+    public static void reduziereLagerbestand(int schuhId, int anzahl, Connection c) throws SQLException {
+        String updateLagerSQL = "UPDATE lager SET menge = menge - ? WHERE schuhID = ?";
+
+        try (PreparedStatement updateStmt = c.prepareStatement(updateLagerSQL)) {
+            updateStmt.setInt(1, anzahl);
+            updateStmt.setInt(2, schuhId);
+            updateStmt.executeUpdate();
         }
     }
 

@@ -1,0 +1,34 @@
+[
+    {
+        "marke": "Nike",
+        "modell": "Air Max",
+        "schuhgroesse": 42,
+        "preis": 129.99,
+        "menge": 10,
+        "farbe": "schwarz"
+    },
+    {
+        "marke": "Adidas",
+        "modell": "Ultra Boost",
+        "schuhgroesse": 44,
+        "preis": 149.99,
+        "menge": 5,
+        "farbe": "weiss"
+    },
+    {
+        "marke": "Nike",
+        "modell": "Air Jordan1",
+        "schuhgroesse": 41,
+        "preis": 229.99,
+        "menge": 7,
+        "farbe": "rot"
+    },
+    {
+        "marke": "Nike",
+        "modell": "Air Jordan4",
+        "schuhgroesse": 40,
+        "preis": 429.99,
+        "menge": 3,
+        "farbe": "grau"
+    }
+]
