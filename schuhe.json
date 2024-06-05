@@ -1,0 +1,218 @@
+[
+    {
+        "farbe": "schwarz",
+        "schuhgroesse": 40,
+        "preis": 1000,
+        "marke": "Dior",
+        "modell": "B22",
+        "menge": 0
+    },
+    {
+        "farbe": "eot",
+        "schuhgroesse": 39,
+        "preis": 120.99,
+        "marke": "Nike",
+        "modell": "AirMax",
+        "menge": 0
+    },
+    {
+        "farbe": "schwarz",
+        "schuhgroesse": 42,
+        "preis": 129.99,
+        "marke": "Nike",
+        "modell": "Air Max",
+        "menge": 10
+    },
+    {
+        "farbe": "weiss",
+        "schuhgroesse": 44,
+        "preis": 149.99,
+        "marke": "Adidas",
+        "modell": "Ultra Boost",
+        "menge": 5
+    },
+    {
+        "farbe": "weiß",
+        "schuhgroesse": 38,
+        "preis": 80.99,
+        "marke": "Puma",
+        "modell": "Fly",
+        "menge": 0
+    },
+    {
+        "farbe": "grau",
+        "schuhgroesse": 45,
+        "preis": 129.99,
+        "marke": "Nike",
+        "modell": "TN",
+        "menge": 0
+    },
+    {
+        "farbe": "weiß",
+        "schuhgroesse": 45,
+        "preis": 120.99,
+        "marke": "Nike",
+        "modell": "TN",
+        "menge": 0
+    },
+    {
+        "farbe": "schwarz",
+        "schuhgroesse": 42,
+        "preis": 129.99,
+        "marke": "Nike",
+        "modell": "Air Max",
+        "menge": 10
+    },
+    {
+        "farbe": "weiss",
+        "schuhgroesse": 44,
+        "preis": 149.99,
+        "marke": "Adidas",
+        "modell": "Ultra Boost",
+        "menge": 5
+    },
+    {
+        "farbe": "pink",
+        "schuhgroesse": 39,
+        "preis": 1200,
+        "marke": "LV",
+        "modell": "Trainer",
+        "menge": 0
+    },
+    {
+        "farbe": "weiß",
+        "schuhgroesse": 38,
+        "preis": 110,
+        "marke": "Nike",
+        "modell": "Airforce1",
+        "menge": 0
+    },
+    {
+        "farbe": "rot",
+        "schuhgroesse": 40,
+        "preis": 90.99,
+        "marke": "Adidas",
+        "modell": "Samba",
+        "menge": 0
+    },
+    {
+        "farbe": "mocha",
+        "schuhgroesse": 42,
+        "preis": 350.99,
+        "marke": "Nike",
+        "modell": "Jordan1",
+        "menge": 0
+    },
+    {
+        "farbe": "blau",
+        "schuhgroesse": 39,
+        "preis": 120.66,
+        "marke": "NewBalance",
+        "modell": "550",
+        "menge": 0
+    },
+    {
+        "farbe": "grau",
+        "schuhgroesse": 43,
+        "preis": 320.77,
+        "marke": "Nike",
+        "modell": "Jordan3",
+        "menge": 0
+    },
+    {
+        "farbe": "schwarz",
+        "schuhgroesse": 42,
+        "preis": 129.99,
+        "marke": "Nike",
+        "modell": "Air Max",
+        "menge": 10
+    },
+    {
+        "farbe": "weiss",
+        "schuhgroesse": 44,
+        "preis": 149.99,
+        "marke": "Adidas",
+        "modell": "Ultra Boost",
+        "menge": 5
+    },
+    {
+        "farbe": "rot",
+        "schuhgroesse": 41,
+        "preis": 229.99,
+        "marke": "Nike",
+        "modell": "Air Jordan1",
+        "menge": 7
+    },
+    {
+        "farbe": "grau",
+        "schuhgroesse": 40,
+        "preis": 429.99,
+        "marke": "Nike",
+        "modell": "Air Jordan4",
+        "menge": 3
+    },
+    {
+        "farbe": "blau",
+        "schuhgroesse": 45,
+        "preis": 230,
+        "marke": "Nike",
+        "modell": "Jordan5",
+        "menge": 0
+    },
+    {
+        "farbe": "rot",
+        "schuhgroesse": 34,
+        "preis": 120,
+        "marke": "Puma",
+        "modell": "Superly",
+        "menge": 0
+    },
+    {
+        "farbe": "pink",
+        "schuhgroesse": 45,
+        "preis": 290,
+        "marke": "Nike",
+        "modell": "Jordan1",
+        "menge": 0
+    },
+    {
+        "farbe": "rot",
+        "schuhgroesse": 43,
+        "preis": 400,
+        "marke": "Nike",
+        "modell": "Jordan3",
+        "menge": 0
+    },
+    {
+        "farbe": "schwarz",
+        "schuhgroesse": 42,
+        "preis": 129.99,
+        "marke": "Nike",
+        "modell": "Air Max",
+        "menge": 10
+    },
+    {
+        "farbe": "weiss",
+        "schuhgroesse": 44,
+        "preis": 149.99,
+        "marke": "Adidas",
+        "modell": "Ultra Boost",
+        "menge": 5
+    },
+    {
+        "farbe": "rot",
+        "schuhgroesse": 41,
+        "preis": 229.99,
+        "marke": "Nike",
+        "modell": "Air Jordan1",
+        "menge": 7
+    },
+    {
+        "farbe": "grau",
+        "schuhgroesse": 40,
+        "preis": 429.99,
+        "marke": "Nike",
+        "modell": "Air Jordan4",
+        "menge": 3
+    }
+]
